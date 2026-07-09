@@ -6,6 +6,8 @@ export const PROYECTOS = [
     ubicacion: 'Costa Rica',
     descripcion: 'Excavación de fundación para vivienda de dos niveles, incluyendo retiro de material sobrante.',
     imagen: null,
+    antes: null,
+    despues: null,
   },
   {
     id: 2,
@@ -14,6 +16,8 @@ export const PROYECTOS = [
     ubicacion: 'Costa Rica',
     descripcion: 'Nivelación y compactación de terreno de 2,000 m² para construcción de bodega.',
     imagen: null,
+    antes: null,
+    despues: null,
   },
   {
     id: 3,
@@ -22,6 +26,8 @@ export const PROYECTOS = [
     ubicacion: 'Costa Rica',
     descripcion: 'Apertura de zanjas de 1.2 m de profundidad para colector de aguas residuales.',
     imagen: null,
+    antes: null,
+    despues: null,
   },
   {
     id: 4,
@@ -30,5 +36,7 @@ export const PROYECTOS = [
     ubicacion: 'Costa Rica',
     descripcion: 'Demolición y retiro de placa de concreto para ampliación de acceso vehicular.',
     imagen: null,
+    antes: null,
+    despues: null,
   },
 ]
