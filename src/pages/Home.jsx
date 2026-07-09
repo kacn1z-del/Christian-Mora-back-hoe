@@ -2,8 +2,12 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import SEO from '../components/SEO'
 import AnimatedSection from '../components/AnimatedSection'
+import FAQAccordion from '../components/FAQAccordion'
 import { SERVICIOS } from '../data/services'
 import { TESTIMONIOS } from '../data/testimonials'
+import { FAQ } from '../data/faq'
+import { COBERTURA } from '../data/coverage'
+import { CONFIANZA } from '../data/trust'
 import { SITE, whatsappLink } from '../data/config'
 
 export default function Home() {
@@ -40,7 +44,6 @@ export default function Home() {
           </motion.div>
         </div>
 
-        {/* franja inferior tipo "placa de máquina" */}
         <div className="border-t border-white/10 bg-graphite-soft">
           <div className="container-page py-6 grid grid-cols-2 sm:grid-cols-4 gap-6 text-center sm:text-left">
             {[
@@ -55,6 +58,18 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* INSIGNIAS DE CONFIANZA */}
+      <section className="border-b border-white/10">
+        <div className="container-page py-6 flex flex-wrap justify-center sm:justify-between gap-x-8 gap-y-3">
+          {CONFIANZA.map((c) => (
+            <div key={c.texto} className="flex items-center gap-2 text-sm text-steel-light">
+              <span className="text-lg">{c.icono}</span>
+              <span>{c.texto}</span>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -111,27 +126,70 @@ export default function Home() {
         </div>
       </section>
 
-      {/* TESTIMONIOS */}
-      <section className="container-page py-20 sm:py-28">
+      {/* ZONA DE COBERTURA */}
+      <section className="container-page py-20 sm:py-24">
         <AnimatedSection>
-          <span className="eyebrow mb-4">Confianza</span>
-          <h2 className="text-3xl sm:text-4xl font-bold mb-12">Lo que dicen nuestros clientes</h2>
+          <span className="eyebrow mb-4">Dónde trabajamos</span>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-5">Zona de cobertura</h2>
+          <p className="text-steel-light max-w-xl leading-relaxed mb-8">
+            Atendemos proyectos en estas zonas con mayor frecuencia. Si tu terreno está en otra
+            zona, escribinos igual — lo evaluamos caso por caso.
+          </p>
         </AnimatedSection>
 
-        <div className="grid sm:grid-cols-3 gap-5">
-          {TESTIMONIOS.map((t, i) => (
-            <AnimatedSection key={i} delay={i * 0.08}>
-              <div className="card p-6 h-full flex flex-col">
-                <span className="text-machine-yellow text-2xl mb-3">"</span>
-                <p className="text-sm text-steel-light leading-relaxed flex-1">{t.texto}</p>
-                <div className="mt-4 pt-4 border-t border-white/10 text-xs">
-                  <div className="font-semibold text-white">{t.nombre}</div>
-                  <div className="text-steel">{t.proyecto}</div>
+        <AnimatedSection delay={0.1}>
+          <div className="flex flex-wrap gap-3">
+            {COBERTURA.map((zona) => (
+              <span
+                key={zona}
+                className="inline-flex items-center gap-2 bg-graphite-soft border border-white/10 rounded-sm px-4 py-2 text-sm text-steel-light"
+              >
+                <span className="text-machine-yellow">📍</span>
+                {zona}
+              </span>
+            ))}
+          </div>
+        </AnimatedSection>
+      </section>
+
+      {/* TESTIMONIOS */}
+      <section className="bg-graphite-soft border-y border-white/10">
+        <div className="container-page py-20 sm:py-28">
+          <AnimatedSection>
+            <span className="eyebrow mb-4">Confianza</span>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-12">Lo que dicen nuestros clientes</h2>
+          </AnimatedSection>
+
+          <div className="grid sm:grid-cols-3 gap-5">
+            {TESTIMONIOS.map((t, i) => (
+              <AnimatedSection key={i} delay={i * 0.08}>
+                <div className="card p-6 h-full flex flex-col">
+                  <span className="text-machine-yellow text-2xl mb-3">"</span>
+                  <p className="text-sm text-steel-light leading-relaxed flex-1">{t.texto}</p>
+                  <div className="mt-4 pt-4 border-t border-white/10 text-xs">
+                    <div className="font-semibold text-white">{t.nombre}</div>
+                    <div className="text-steel">{t.proyecto}</div>
+                  </div>
                 </div>
-              </div>
-            </AnimatedSection>
-          ))}
+              </AnimatedSection>
+            ))}
+          </div>
         </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="container-page py-20 sm:py-28">
+        <AnimatedSection>
+          <span className="eyebrow mb-4">Dudas comunes</span>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4">Preguntas frecuentes</h2>
+          <p className="text-steel-light max-w-xl mb-12">
+            Si tu duda no está acá, escribinos por WhatsApp o usá el asistente virtual del sitio.
+          </p>
+        </AnimatedSection>
+
+        <AnimatedSection delay={0.1} className="max-w-2xl">
+          <FAQAccordion items={FAQ} />
+        </AnimatedSection>
       </section>
 
       {/* CTA FINAL */}
