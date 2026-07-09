@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-graphite text-white font-body antialiased;
+}
+
+h1, h2, h3, h4 {
+  @apply font-display uppercase tracking-wide;
+}
+
+::selection {
+  @apply bg-machine-yellow text-graphite;
+}
+
+/* Foco visible accesible */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #F5B400;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.container-page {
+  @apply max-w-6xl mx-auto px-5 sm:px-8;
+}
+
+.eyebrow {
+  @apply font-mono text-xs tracking-[0.2em] text-machine-yellow uppercase flex items-center gap-2;
+}
+.eyebrow::before {
+  content: "";
+  @apply w-4 h-[3px] bg-machine-yellow inline-block;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 bg-machine-yellow text-graphite font-display font-semibold uppercase tracking-wide px-6 py-3 rounded-sm hover:bg-machine-yellowDark transition-colors;
+}
+
+.btn-outline {
+  @apply inline-flex items-center justify-center gap-2 border border-steel text-white font-display font-semibold uppercase tracking-wide px-6 py-3 rounded-sm hover:border-machine-yellow hover:text-machine-yellow transition-colors;
+}
+
+.card {
+  @apply bg-graphite-card border border-white/10 rounded-sm;
+}
