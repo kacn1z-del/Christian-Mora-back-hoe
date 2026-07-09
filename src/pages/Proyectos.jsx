@@ -1,5 +1,6 @@
 import SEO from '../components/SEO'
 import AnimatedSection from '../components/AnimatedSection'
+import BeforeAfterSlider from '../components/BeforeAfterSlider'
 import { PROYECTOS } from '../data/projects'
 
 export default function Proyectos() {
@@ -16,8 +17,8 @@ export default function Proyectos() {
           <span className="eyebrow mb-4">Casos de trabajo</span>
           <h1 className="text-3xl sm:text-5xl font-bold mb-5">Proyectos</h1>
           <p className="text-steel-light max-w-xl leading-relaxed">
-            Un vistazo a proyectos representativos. Cada tarjeta se puede ampliar con fotografías
-            y detalles reales una vez estén disponibles.
+            Un vistazo a proyectos representativos. Arrastrá el control del slider para comparar
+            el antes y el después una vez que subamos las fotografías reales.
           </p>
         </AnimatedSection>
       </section>
@@ -26,11 +27,7 @@ export default function Proyectos() {
         {PROYECTOS.map((p, i) => (
           <AnimatedSection key={p.id} delay={i * 0.06}>
             <div className="card overflow-hidden h-full flex flex-col">
-              <div className="aspect-video border-b border-white/10 border-dashed flex items-center justify-center">
-                <span className="text-steel text-xs font-mono uppercase tracking-wide">
-                  [ Fotografía pendiente ]
-                </span>
-              </div>
+              <BeforeAfterSlider antes={p.antes} despues={p.despues} alt={p.titulo} />
               <div className="p-6 flex flex-col flex-1">
                 <span className="eyebrow mb-2">{p.categoria}</span>
                 <h2 className="font-display text-lg font-semibold uppercase tracking-wide mb-2">{p.titulo}</h2>
