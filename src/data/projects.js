@@ -1,46 +1,34 @@
-import SEO from '../components/SEO'
-import AnimatedSection from '../components/AnimatedSection'
-import { PROYECTOS } from '../data/projects'
-
-export default function Proyectos() {
-  return (
-    <>
-      <SEO
-        title="Proyectos"
-        description="Proyectos de excavación, nivelación, zanjeo y demolición realizados por Christian Mora Maquinaria Pesada."
-        path="/proyectos"
-      />
-
-      <section className="container-page pt-16 pb-10">
-        <AnimatedSection>
-          <span className="eyebrow mb-4">Casos de trabajo</span>
-          <h1 className="text-3xl sm:text-5xl font-bold mb-5">Proyectos</h1>
-          <p className="text-steel-light max-w-xl leading-relaxed">
-            Un vistazo a proyectos representativos. Cada tarjeta se puede ampliar con fotografías
-            y detalles reales una vez estén disponibles.
-          </p>
-        </AnimatedSection>
-      </section>
-
-      <section className="container-page pb-24 grid sm:grid-cols-2 gap-5">
-        {PROYECTOS.map((p, i) => (
-          <AnimatedSection key={p.id} delay={i * 0.06}>
-            <div className="card overflow-hidden h-full flex flex-col">
-              <div className="aspect-video border-b border-white/10 border-dashed flex items-center justify-center">
-                <span className="text-steel text-xs font-mono uppercase tracking-wide">
-                  [ Fotografía pendiente ]
-                </span>
-              </div>
-              <div className="p-6 flex flex-col flex-1">
-                <span className="eyebrow mb-2">{p.categoria}</span>
-                <h2 className="font-display text-lg font-semibold uppercase tracking-wide mb-2">{p.titulo}</h2>
-                <p className="text-sm text-steel-light leading-relaxed flex-1">{p.descripcion}</p>
-                <span className="text-xs text-steel mt-4">{p.ubicacion}</span>
-              </div>
-            </div>
-          </AnimatedSection>
-        ))}
-      </section>
-    </>
-  )
-}
+export const PROYECTOS = [
+  {
+    id: 1,
+    titulo: 'Excavación de fundación residencial',
+    categoria: 'Excavación',
+    ubicacion: 'Costa Rica',
+    descripcion: 'Excavación de fundación para vivienda de dos niveles, incluyendo retiro de material sobrante.',
+    imagen: null,
+  },
+  {
+    id: 2,
+    titulo: 'Nivelación de lote para bodega industrial',
+    categoria: 'Nivelación',
+    ubicacion: 'Costa Rica',
+    descripcion: 'Nivelación y compactación de terreno de 2,000 m² para construcción de bodega.',
+    imagen: null,
+  },
+  {
+    id: 3,
+    titulo: 'Zanjeo para tubería de aguas residuales',
+    categoria: 'Zanjeo',
+    ubicacion: 'Costa Rica',
+    descripcion: 'Apertura de zanjas de 1.2 m de profundidad para colector de aguas residuales.',
+    imagen: null,
+  },
+  {
+    id: 4,
+    titulo: 'Demolición de placa de concreto',
+    categoria: 'Demolición',
+    ubicacion: 'Costa Rica',
+    descripcion: 'Demolición y retiro de placa de concreto para ampliación de acceso vehicular.',
+    imagen: null,
+  },
+]
