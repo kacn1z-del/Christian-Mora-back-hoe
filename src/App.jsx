@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import WhatsAppButton from './components/WhatsAppButton'
+import ChatWidget from './components/ChatWidget'
 import Home from './pages/Home'
 import Servicios from './pages/Servicios'
 import Galeria from './pages/Galeria'
@@ -37,6 +38,7 @@ export default function App() {
       </main>
       <Footer />
       <WhatsAppButton />
+      <ChatWidget />
     </div>
   )
 }
