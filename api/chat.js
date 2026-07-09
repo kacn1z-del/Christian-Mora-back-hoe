@@ -1,10 +1,11 @@
 /* ============================================================
    FUNCIÓN SERVERLESS: /api/chat
    Recibe el historial de la conversación del sitio web y
-   responde usando la API de Anthropic (Claude).
+   responde usando la API de Gemini (Google AI Studio) — nivel
+   gratuito, sin tarjeta de crédito.
 
    Requiere una variable de entorno en Vercel:
-     ANTHROPIC_API_KEY = tu clave de api.anthropic.com
+     GEMINI_API_KEY = tu clave de aistudio.google.com
 
    Configurala en: Vercel → tu proyecto → Settings →
    Environment Variables → Add New.
@@ -24,13 +25,15 @@ Reglas importantes:
 - Si te preguntan algo que no tiene que ver con la empresa o sus servicios, redirigí amablemente la
   conversación hacia cómo podés ayudar con su proyecto de movimiento de tierra.`
 
+const MODEL = 'gemini-2.5-flash'
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Método no permitido' })
     return
   }
 
-  const apiKey = process.env.ANTHROPIC_API_KEY
+  const apiKey = process.env.GEMINI_API_KEY
   if (!apiKey) {
     res.status(200).json({
       reply:
@@ -46,32 +49,37 @@ export default async function handler(req, res) {
       return
     }
 
-    const anthropicRes = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-      },
-      body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 400,
-        system: SYSTEM_PROMPT,
-        messages: messages.slice(-12),
-      }),
-    })
+    // Gemini usa "user" / "model" en vez de "user" / "assistant"
+    const contents = messages.slice(-12).map((m) => ({
+      role: m.role === 'assistant' ? 'model' : 'user',
+      parts: [{ text: m.content }],
+    }))
 
-    if (!anthropicRes.ok) {
-      const errText = await anthropicRes.text()
-      console.error('Error de Anthropic API:', errText)
+    const geminiRes = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${apiKey}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+          contents,
+        }),
+      }
+    )
+
+    if (!geminiRes.ok) {
+      const errText = await geminiRes.text()
+      console.error('Error de Gemini API:', errText)
       res.status(200).json({
         reply: 'Tuvimos un problema para responder. Escribinos por WhatsApp y te ayudamos enseguida.',
       })
       return
     }
 
-    const data = await anthropicRes.json()
-    const reply = data.content?.[0]?.text || 'No pude generar una respuesta. Probá de nuevo.'
+    const data = await geminiRes.json()
+    const reply =
+      data.candidates?.[0]?.content?.parts?.[0]?.text ||
+      'No pude generar una respuesta. Probá de nuevo.'
 
     res.status(200).json({ reply })
   } catch (err) {
