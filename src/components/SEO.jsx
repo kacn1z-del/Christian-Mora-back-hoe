@@ -1,17 +1,38 @@
-import { Helmet } from 'react-helmet-async'
+import { useEffect } from 'react'
 
 export default function SEO({ title, description, path = '/' }) {
-  const fullTitle = `${title} | Christian Mora Maquinaria Pesada`
-  const url = `https://christianmoramaquinaria.com${path}`
+  useEffect(() => {
+    const fullTitle = `${title} | Christian Mora Maquinaria Pesada`
+    const url = `https://christianmoramaquinaria.com${path}`
 
-  return (
-    <Helmet>
-      <title>{fullTitle}</title>
-      <meta name="description" content={description} />
-      <link rel="canonical" href={url} />
-      <meta property="og:title" content={fullTitle} />
-      <meta property="og:description" content={description} />
-      <meta property="og:url" content={url} />
-    </Helmet>
-  )
+    document.title = fullTitle
+
+    setMeta('name', 'description', description)
+    setMeta('property', 'og:title', fullTitle)
+    setMeta('property', 'og:description', description)
+    setMeta('property', 'og:url', url)
+    setCanonical(url)
+  }, [title, description, path])
+
+  return null
+}
+
+function setMeta(attr, key, content) {
+  let tag = document.querySelector(`meta[${attr}="${key}"]`)
+  if (!tag) {
+    tag = document.createElement('meta')
+    tag.setAttribute(attr, key)
+    document.head.appendChild(tag)
+  }
+  tag.setAttribute('content', content)
+}
+
+function setCanonical(url) {
+  let link = document.querySelector('link[rel="canonical"]')
+  if (!link) {
+    link = document.createElement('link')
+    link.setAttribute('rel', 'canonical')
+    document.head.appendChild(link)
+  }
+  link.setAttribute('href', url)
 }
